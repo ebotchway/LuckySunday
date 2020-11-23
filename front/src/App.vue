@@ -1,28 +1,79 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="#app">
+        <topbar></topbar>
+
+        <main>
+            <transition :name="transitionName" mode="out-in" appear>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+        </main>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    import Topbar from './components/Topbar';
+    import store from './vuex/store';
+    export default {
+        store,
+        components: {
+            Topbar
+        },
+        computed: {
+            transitionName() {
+                return this.$route.path === '/' ? 'slide-right' : 'slide-left';
+            }
+        }
+    };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+    @import './styles/milligram';
+    main {
+        padding: 20px 20px 20px 20px;
+    }
+    // Animations
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .2s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+    .scale-enter-active {
+        animation: scale-in .3s;
+    }
+    .scale-leave-active {
+        animation: scale-out .3s;
+    }
+    @keyframes scale-in {
+        0% {
+            transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    @keyframes scale-out {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+        }
+    }
+    .slide-left-enter-active {
+        transition: all .3s;
+    }
+    .slide-left-enter {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    .slide-right-enter-active {
+        transition: all .3s;
+    }
+    .slide-right-enter {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
 </style>

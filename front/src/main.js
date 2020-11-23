@@ -1,8 +1,25 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue';
+import Electron from 'vue-electron';
+import Resource from 'vue-resource';
+import VueRouter from 'vue-router';
 
-Vue.config.productionTip = false
+import App from './App';
+import routes from './routes';
 
+Vue.use(Electron);
+Vue.use(Resource);
+Vue.use(VueRouter);
+Vue.config.debug = true;
+
+const router = new VueRouter({
+  scrollBehavior: () => ({
+    y: 0
+  }),
+  routes
+});
+
+/* eslint-disable no-new */
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  ...App
+}).$mount('#app');
