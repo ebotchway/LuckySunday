@@ -19,9 +19,4 @@ class Player extends Model
         'phone',
         'location',
     ];
-
-    static function get_player()
-    {
-        Player::all()->random(1);
-    }
 }

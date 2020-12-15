@@ -15,7 +15,7 @@
                 font-family: 'Nunito';
             }
             .button {
-                background-color: #4CAF50;
+                background-color: #7f4caf;
                 border: none;
                 color: white;
                 padding: 15px 32px;
@@ -28,24 +28,130 @@
                 box-shadow: 6px 6px #998;
             }
 
-            .button:hover {background-color: #3e8e41}
+            .button:hover {background-color: #5a3e8e}
             .button:active {
-                background-color: #3e8e41;
-                box-shadow: 0 5px #666;
+                background-color: #563e8e;
+                box-shadow: 0 5px rgb(255, 90, 233);
                 transform: translateY(4px);
             }
+            .bubbly-button{
+                font-family: 'Helvetica', 'Arial', sans-serif;
+                display: inline-block;
+                font-size: 1em;
+                padding: 1em 2em;
+                margin-top: 100px;
+                margin-bottom: 60px;
+                -webkit-appearance: none;
+                appearance: none;
+                background-color: $button-bg;
+                color: $button-text-color;
+                border-radius: 4px;
+                border: none;
+                cursor: pointer;
+                position: relative;
+                transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+                box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
+
+                &:focus {
+                    outline: 0;
+                }
+
+                &:before, &:after{
+                    position: absolute;
+                    content: '';
+                    display: block;
+                    width: 140%;
+                    height: 100%;
+                    left: -20%;
+                    z-index: -1000;
+                    transition: all ease-in-out 0.5s;
+                    background-repeat: no-repeat;
+                }
+
+                &:before{
+                    display: none;
+                    top: -75%;
+                    background-image:
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle,  transparent 20%, $button-bg 20%, transparent 30%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%);
+                background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
+                //background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
+                }
+
+                &:after{
+                    display: none;
+                    bottom: -75%;
+                    background-image:
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%),
+                    radial-gradient(circle, $button-bg 20%, transparent 20%);
+                background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+                //background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+                }
+
+                &:active{
+                    transform: scale(0.9);
+                    background-color: darken($button-bg, 5%);
+                    box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+                }
+
+                &.animate{
+                    &:before{
+                    display: block;
+                    animation: topBubbles ease-in-out 0.75s forwards;
+                    }
+                    &:after{
+                    display: block;
+                    animation: bottomBubbles ease-in-out 0.75s forwards;
+                    }
+                }
+            }
+
+            @keyframes topBubbles {
+                0%{
+                    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
+                }
+                    50% {
+                    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
+                100% {
+                    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
+                background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+                }
+                }
+
+                @keyframes bottomBubbles {
+                0%{
+                    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
+                }
+                50% {
+                    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
+                100% {
+                    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
+                background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+                }
+            }
         </style>
+        <!-- Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="{{ asset('js/app.js')}}"></script>
     </head>
 
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
-                        <g clip-path="url(#clip0)" fill="#EF3B2D">
-                            <path d="M248.032 44.676h-16.466v100.23h47.394v-14.748h-30.928V44.676zM337.091 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.431 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162-.001 2.863-.479 5.584-1.432 8.161zM463.954 87.202c-2.101-3.341-5.083-5.965-8.949-7.875-3.865-1.909-7.756-2.864-11.669-2.864-5.062 0-9.69.931-13.89 2.792-4.201 1.861-7.804 4.417-10.811 7.661-3.007 3.246-5.347 6.993-7.016 11.239-1.672 4.249-2.506 8.713-2.506 13.389 0 4.774.834 9.26 2.506 13.459 1.669 4.202 4.009 7.925 7.016 11.169 3.007 3.246 6.609 5.799 10.811 7.66 4.199 1.861 8.828 2.792 13.89 2.792 3.913 0 7.804-.955 11.669-2.863 3.866-1.908 6.849-4.533 8.949-7.875v9.021h15.607V78.182h-15.607v9.02zm-1.432 32.503c-.955 2.578-2.291 4.821-4.009 6.73-1.719 1.91-3.795 3.437-6.229 4.582-2.435 1.146-5.133 1.718-8.091 1.718-2.96 0-5.633-.572-8.019-1.718-2.387-1.146-4.438-2.672-6.156-4.582-1.719-1.909-3.032-4.152-3.938-6.73-.909-2.577-1.36-5.298-1.36-8.161 0-2.864.451-5.585 1.36-8.162.905-2.577 2.219-4.819 3.938-6.729 1.718-1.908 3.77-3.437 6.156-4.582 2.386-1.146 5.059-1.718 8.019-1.718 2.958 0 5.656.572 8.091 1.718 2.434 1.146 4.51 2.674 6.229 4.582 1.718 1.91 3.054 4.152 4.009 6.729.953 2.577 1.432 5.298 1.432 8.162 0 2.863-.479 5.584-1.432 8.161zM650.772 44.676h-15.606v100.23h15.606V44.676zM365.013 144.906h15.607V93.538h26.776V78.182h-42.383v66.724zM542.133 78.182l-19.616 51.096-19.616-51.096h-15.808l25.617 66.724h19.614l25.617-66.724h-15.808zM591.98 76.466c-19.112 0-34.239 15.706-34.239 35.079 0 21.416 14.641 35.079 36.239 35.079 12.088 0 19.806-4.622 29.234-14.688l-10.544-8.158c-.006.008-7.958 10.449-19.832 10.449-13.802 0-19.612-11.127-19.612-16.884h51.777c2.72-22.043-11.772-40.877-33.023-40.877zm-18.713 29.28c.12-1.284 1.917-16.884 18.589-16.884 16.671 0 18.697 15.598 18.813 16.884h-37.402zM184.068 43.892c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002-35.648-20.524a2.971 2.971 0 00-2.964 0l-35.647 20.522-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v38.979l-29.706 17.103V24.493a3 3 0 00-.103-.776c-.024-.088-.073-.165-.104-.25-.058-.157-.108-.316-.191-.46-.056-.097-.137-.176-.203-.265-.087-.117-.161-.242-.265-.345-.085-.086-.194-.148-.29-.223-.109-.085-.206-.182-.327-.252l-.002-.001-.002-.002L40.098 1.396a2.971 2.971 0 00-2.964 0L1.487 21.919l-.002.002-.002.001c-.121.07-.219.167-.327.252-.096.075-.205.138-.29.223-.103.103-.178.228-.265.345-.066.089-.147.169-.203.265-.083.144-.133.304-.191.46-.031.085-.08.162-.104.25-.067.249-.103.51-.103.776v122.09c0 1.063.568 2.044 1.489 2.575l71.293 41.045c.156.089.324.143.49.202.078.028.15.074.23.095a2.98 2.98 0 001.524 0c.069-.018.132-.059.2-.083.176-.061.354-.119.519-.214l71.293-41.045a2.971 2.971 0 001.489-2.575v-38.979l34.158-19.666a2.971 2.971 0 001.489-2.575V44.666a3.075 3.075 0 00-.106-.774zM74.255 143.167l-29.648-16.779 31.136-17.926.001-.001 34.164-19.669 29.674 17.084-21.772 12.428-43.555 24.863zm68.329-76.259v33.841l-12.475-7.182-17.231-9.92V49.806l12.475 7.182 17.231 9.92zm2.97-39.335l29.693 17.095-29.693 17.095-29.693-17.095 29.693-17.095zM54.06 114.089l-12.475 7.182V46.733l17.231-9.92 12.475-7.182v74.537l-17.231 9.921zM38.614 7.398l29.693 17.095-29.693 17.095L8.921 24.493 38.614 7.398zM5.938 29.632l12.475 7.182 17.231 9.92v79.676l.001.005-.001.006c0 .114.032.221.045.333.017.146.021.294.059.434l.002.007c.032.117.094.222.14.334.051.124.088.255.156.371a.036.036 0 00.004.009c.061.105.149.191.222.288.081.105.149.22.244.314l.008.01c.084.083.19.142.284.215.106.083.202.178.32.247l.013.005.011.008 34.139 19.321v34.175L5.939 144.867V29.632h-.001zm136.646 115.235l-65.352 37.625V148.31l48.399-27.628 16.953-9.677v33.862zm35.646-61.22l-29.706 17.102V66.908l17.231-9.92 12.475-7.182v33.841z"/>
-                        </g>
-                    </svg>
+                    <p>Logo of Lucky Suday here</p>
                 </div>
 
                 <div class="mt-8 dark:bg-gray-800 overflow-hidden">
@@ -53,7 +159,17 @@
                         <h1>Welcome to LuckySunday</h1>
                     </div>
                     <div class="text-center">
-                        <input type="button" class="button" value="CHOOSE A PLAYER">
+                        <input id="startButton" type="button" class="button bubbly-button" value="CHOOSE A PLAYER" onclick="showPlayer()">
+                    </div>
+                    <div id="myDIV" style="display: none">
+                        <div>
+                            @foreach($player as $players)
+                            <h4 id="headerNames">{{$players->fullname}} from {{$players->location}} is our player for next week</h4>
+                            @endforeach
+                        </div>
+                        <div>
+                            <div class="button" id="stopButton">stop</div>
+                        </div>
                     </div>
                 </div>
 
@@ -69,4 +185,32 @@
             </div>
         </div>
     </body>
+
+    <script>
+        function showPlayer() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            $("#startButton").attr("disabled","disabled").css('opacity',0.3);
+        }
+
+        var animateButton = function(e) {
+        e.preventDefault;
+        //reset animation
+        e.target.classList.remove('animate');
+        e.target.classList.add('animate');
+        setTimeout(function(){
+            e.target.classList.remove('animate');
+        },700);
+        };
+
+        var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+        for (var i = 0; i < bubblyButtons.length; i++) {
+        bubblyButtons[i].addEventListener('click', animateButton, false);
+        }
+    </script>
 </html>
